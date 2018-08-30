@@ -1,4 +1,7 @@
 nb_classes = 10
+local_path = "http://127.0.0.1:5000"
+heroku_path = "https://tikal-deep-learning-demo.herokuapp.com"
+
 
 def get_data():
     from keras.datasets import mnist
@@ -13,6 +16,7 @@ def get_data():
     Y_train = np_utils.to_categorical(y_train, nb_classes)
     Y_test = np_utils.to_categorical(y_test, nb_classes)
     return (X_train, Y_train), (X_test, Y_test)
+
 
 def build_model(layers = 2, size = 512, dropout = None, **kwargs):
     from keras.models import Sequential
@@ -44,6 +48,13 @@ def model_without_dropout():
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=["accuracy"])
     return model
 
+
+def check_if_on_heroku():
+    import os
+    on_heroku = False
+    if 'YOUR_ENV_VAR' in os.environ:
+      on_heroku = True
+    return on_heroku
 
 if __name__ == "__main__":
     (x_train, y_train), (x_test, y_test) = get_data()

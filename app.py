@@ -20,7 +20,7 @@ def train_model():
     data = json.loads(request.data)
     model = build_model(**data)
     (x_train, y_train), (x_test, y_test) = get_data()
-    hist = model.fit(x_train, y_train, batch_size=128, epochs=10, verbose=1).history
+    hist = model.fit(x_train, y_train, batch_size=128, epochs=10, verbose=1, validation_data=(x_test, y_test)).history
     models[data["model_name"]] = model
     return jsonify(hist)
 
