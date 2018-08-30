@@ -65,6 +65,9 @@ def model_without_dropout():
 
 def check_if_on_heroku():
     import os
+    ON_HEROKU = 'ON_HEROKU' in os.environ
+    return ON_HEROKU
+
     on_heroku = False
     if 'YOUR_ENV_VAR' in os.environ:
       on_heroku = True

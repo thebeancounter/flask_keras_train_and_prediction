@@ -51,5 +51,6 @@ def predict():
 
 
 if not check_if_on_heroku():
+    print("not on heroku!! ")
     # this is not needed on heroku!
     app.run(debug=True)
