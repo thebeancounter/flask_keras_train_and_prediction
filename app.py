@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 import os
+from utils import check_if_on_heroku
 
 app = Flask(__name__)
 CORS(app)
@@ -49,9 +50,6 @@ def predict():
     return jsonify(prediction)
 
 
-
-
-
-
-
-#app.run(debug=True)
+if not check_if_on_heroku():
+    # this is not needed on heroku!
+    app.run(debug=True)

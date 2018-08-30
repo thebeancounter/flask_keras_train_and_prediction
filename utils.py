@@ -6,19 +6,31 @@ heroku_path = "https://tikal-deep-learning-demo.herokuapp.com"
 def get_data():
     from keras.datasets import mnist
     from keras.utils import np_utils
+    from utils import check_if_on_heroku
+
     (X_train, y_train), (X_test, y_test) = mnist.load_data()
-    X_train = X_train.reshape(60000, 784)
-    X_test = X_test.reshape(10000, 784)
+    if check_if_on_heroku():
+        X_train = X_train[:100]
+        X_test = X_test[:10]
+        y_train = y_train[:100]
+        y_test = y_test[:10]
+
+    X_train = X_train.reshape(len(x_train), 784)
+    X_test = X_test.reshape(len(x_test), 784)
     X_train = X_train.astype('float32')
     X_test = X_test.astype('float32')
-    X_train /= 255
-    X_test /= 255
+    X_train /= 255.0
+    X_test /= 255.0
+
+
+
+
     Y_train = np_utils.to_categorical(y_train, nb_classes)
     Y_test = np_utils.to_categorical(y_test, nb_classes)
     return (X_train, Y_train), (X_test, Y_test)
 
 
-def build_model(layers = 2, size = 512, dropout = None, **kwargs):
+def build_model(layers=2, size=512, dropout=None, **kwargs):
     from keras.models import Sequential
     from keras.layers import Dense, Dropout, Input
     model = Sequential()
@@ -38,6 +50,7 @@ def build_model(layers = 2, size = 512, dropout = None, **kwargs):
     return model
 
 
+"""
 def model_without_dropout():
     from keras.models import Sequential
     from keras.layers import Dense, Dropout
@@ -47,6 +60,7 @@ def model_without_dropout():
     model.add(Dense(10, activation="softmax"))
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=["accuracy"])
     return model
+"""
 
 
 def check_if_on_heroku():
