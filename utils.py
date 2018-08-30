@@ -15,8 +15,8 @@ def get_data():
         y_train = y_train[:100]
         y_test = y_test[:10]
 
-    X_train = X_train.reshape(len(x_train), 784)
-    X_test = X_test.reshape(len(x_test), 784)
+    X_train = X_train.reshape(len(X_train), 784)
+    X_test = X_test.reshape(len(X_test), 784)
     X_train = X_train.astype('float32')
     X_test = X_test.astype('float32')
     X_train /= 255.0
