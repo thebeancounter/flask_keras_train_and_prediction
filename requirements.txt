@@ -1,8 +1,4 @@
 tensorflow
 keras
 numpy
-flask
-flask-cors
-requests
 theano
-gunicorn

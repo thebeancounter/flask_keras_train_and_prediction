@@ -1,7 +1,7 @@
-from utils import get_data
+from obs.utils import get_data
 import requests
 import json
-from utils import check_if_on_heroku, heroku_path, local_path
+from obs.utils import check_if_on_heroku, heroku_path, local_path
 import os
 
 train_data = {

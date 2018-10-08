@@ -6,7 +6,7 @@ heroku_path = "https://tikal-deep-learning-demo.herokuapp.com"
 def get_data():
     from keras.datasets import mnist
     from keras.utils import np_utils
-    from utils import check_if_on_heroku
+    from obs.utils import check_if_on_heroku
 
     (X_train, y_train), (X_test, y_test) = mnist.load_data()
     if check_if_on_heroku():
@@ -23,8 +23,6 @@ def get_data():
     X_test /= 255.0
 
 
-
-
     Y_train = np_utils.to_categorical(y_train, nb_classes)
     Y_test = np_utils.to_categorical(y_test, nb_classes)
     return (X_train, Y_train), (X_test, Y_test)
@@ -32,7 +30,7 @@ def get_data():
 
 def build_model(layers=2, size=512, dropout=None, **kwargs):
     from keras.models import Sequential
-    from keras.layers import Dense, Dropout, Input
+    from keras.layers import Dense, Dropout
     model = Sequential()
 
     for i in range(layers):
@@ -48,19 +46,6 @@ def build_model(layers=2, size=512, dropout=None, **kwargs):
     model.add(Dense(10, activation="softmax"))
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=["accuracy"])
     return model
-
-
-"""
-def model_without_dropout():
-    from keras.models import Sequential
-    from keras.layers import Dense, Dropout
-    model = Sequential()
-    model.add(Dense(512, input_shape=(784,), activation="relu"))
-    model.add(Dense(512, activation="relu"))
-    model.add(Dense(10, activation="softmax"))
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=["accuracy"])
-    return model
-"""
 
 
 def check_if_on_heroku():

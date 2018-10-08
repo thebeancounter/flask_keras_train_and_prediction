@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 import os
-from utils import check_if_on_heroku
+from obs.utils import check_if_on_heroku
 
 app = Flask(__name__)
 CORS(app)
@@ -15,7 +15,7 @@ def hello_world():
 
 @app.route("/train_model", methods=['POST'])
 def train_model():
-    from utils import build_model, get_data
+    from obs.utils import build_model, get_data
     import json
     from flask import request, jsonify
     data = json.loads(request.data)
