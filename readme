@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#use the command $sudo sh readme
+python3 -m pip install --user virtualenv
+python3 -m virtualenv ./env
+./env/bin/pip3 install -r requirements.txt
